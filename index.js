@@ -117,23 +117,31 @@ console.log(calculateHypotenuse(3, 4));
 function roundObjectValues(obj) {
   // Перевіряємо, чи аргумент є об'єктом.
 //   obj.isObjects(obj)?
-  if(obj.isObjects){return "Помилка: аргумент має бути об'єктом";}else if
+  // if(obj.isObjects){return "Помилка: аргумент має бути об'єктом";}else if
   // Також перевіряємо, що аргумент не є null.
 //   obj !== null ? "Помилка: Аргумент не є об'єктом." , null : obj
-	(obj === null){
+	// (obj === null){
+if (typrof obj !== "object" || obj === null) {
   // Якщо аргумент не є об'єктом або є null, виводимо повідомлення "Помилка: аргумент має бути об'єктом".
+	console.log("Помилка: аргумент має бути об'єктом");
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   return null;
 	}
   // Отримуємо масив пар [ключ, значення] з об'єкта.
-  let a = [Object.keys(obj), Object.values(obj)];
+  // let a = [Object.keys(obj), Object.values(obj)];
+	const entries = Object.entries(obj);
   // Перебереємо за допомогою методу map кожну пару [ключ, значення].
-  let i = a.map((keys, values) => typeof values === "number"? [keys, Math.round(values)]:[keys, values]);
+  // let i = a.map((keys, values) => typeof values === "number"? [keys, Math.round(values)]:[keys, values]);
+ const reundedEntries = entries.map(([key, value]) => {
   // Перевіряємо, чи значення є числом.
+	 if( tepeof value === "number") {
   // Якщо значення є числом, округлюємо його до найближчого цілого та повертаємо нову пару [ключ, значення].
+	 return [key, Math.round(value)];
+	 } else {
   // Якщо значення не є числом, повертаємо оригінальну пару [ключ, значення].
+	return [key, value];	 
   // Конвертуємо масив пар [ключ, значення] назад в об'єкт за допомогою Object.fromEntries().
-  let j = Object.fromEntries(i);
+  const j = Object.fromEntries(reundedEntries);
   // Повертаємо новий об'єкт з заокругленими значеннями числових властивостей.
   return j;
 }
@@ -193,9 +201,9 @@ function sumPositiveNumbers(numbers) {
   // Проходимо по всіх числах у масиві за допомогою циклу for.
   for(let i = 0; i < numbers.length; i++ ){
   // Перевіряємо, чи є поточне число додатним, використовуючи Math.sign.
-  if(Math.sign(i) > 0)
+  if(Math.sign(numbers[i]) === 1)
   // Якщо число додатнє, додаємо його до суми.
-  sum += i}
+  sum += numbers[i]}
   // Повертаємо суму додатніх чисел.
   return sum;
 }
